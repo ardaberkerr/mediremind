@@ -1,0 +1,5 @@
+{
+  "summary": "Updated startup script to automatically launch the development server in a new window and open the browser to http://localhost:3000.",
+  "updatedAt": "2026-09-18T19:08:31.384392500Z",
+  "userFacing": true
+}
