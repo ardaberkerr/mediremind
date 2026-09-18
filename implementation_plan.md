@@ -14,7 +14,9 @@ Create a production‑ready, modular full‑stack web application that sends SMS
 
 ## Open Questions
 
-- **Background queue system**: Upstash QStash (serverless) vs BullMQ (Redis‑based).
+- **Background queue system**: BullMQ
+- **Authentication method**: NextAuth.js
+- **SMS providers**: Both Twilio and Netgsm (Twilio primary)
 - **Authentication method**: NextAuth.js (email/OTP) vs Clerk (phone + OTP).
 - **SMS provider default**: Prefer Twilio as primary with Netgsm as fallback, or make both configurable?
 
