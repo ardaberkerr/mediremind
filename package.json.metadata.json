@@ -1,0 +1,5 @@
+{
+  "summary": "Project package definition with dependencies for Next.js, TypeScript, Tailwind, Shadcn UI, Prisma, BullMQ, Twilio, Netgsm, Zod, NextAuth.js.",
+  "updatedAt": "2026-09-18T19:03:24.744455100Z",
+  "userFacing": true
+}
