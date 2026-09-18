@@ -1,5 +1,5 @@
 {
-  "summary": "Prisma schema defining database tables for users, medications, reminder schedules, and notification logs.",
-  "updatedAt": "2026-09-18T19:00:48.402263700Z",
+  "summary": "Prisma schema defining User, Medication, ReminderSchedule, NotificationLog models and enums",
+  "updatedAt": "2026-09-18T19:02:22.719079600Z",
   "userFacing": true
 }

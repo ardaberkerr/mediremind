@@ -7,54 +7,53 @@ generator client {
   provider = "prisma-client-js"
 }
 
+enum NotificationStatus {
+  PENDING
+  SENT
+  FAILED
+}
+
 model User {
-  id           Int        @id @default(autoincrement())
-  name         String?
-  surname      String?
-  phone        String     @unique @db.VarChar(20)
-  passwordHash String?
-  timeZone     String     @default("UTC")
-  createdAt    DateTime   @default(now())
+  id           String        @id @default(uuid())
+  name         String
+  surname      String
+  phone        String        @unique @db.VarChar(15)
+  passwordHash String
+  timeZone     String
+  createdAt    DateTime      @default(now())
   medications  Medication[]
-  notificationLogs NotificationLog[]
 }
 
 model Medication {
-  id           Int        @id @default(autoincrement())
-  userId       Int
-  name         String
-  dosage       String
-  instructions String?
-  startDate    DateTime
-  endDate      DateTime?
-  isActive     Boolean    @default(true)
-  user         User       @relation(fields: [userId], references: [id])
+  id               String           @id @default(uuid())
+  userId           String
+  user             User             @relation(fields: [userId], references: [id])
+  name             String
+  dosage           String
+  instructions     String?
+  startDate        DateTime?
+  endDate          DateTime?
+  isActive         Boolean          @default(true)
   reminderSchedules ReminderSchedule[]
   notificationLogs NotificationLog[]
 }
 
 model ReminderSchedule {
-  id           Int      @id @default(autoincrement())
-  medicationId Int
-  reminderTime String   // HH:mm format
-  daysOfWeek   Int[]   // 1 (Mon) .. 7 (Sun)
+  id           String @id @default(uuid())
+  medicationId String
   medication   Medication @relation(fields: [medicationId], references: [id])
+  reminderTime String   // HH:mm format
+  daysOfWeek   Int[]   // 1 (Monday) .. 7 (Sunday)
 }
 
 model NotificationLog {
-  id               Int      @id @default(autoincrement())
-  userId           Int
-  medicationId      Int
-  status           NotificationStatus @default(PENDING)
+  id               String            @id @default(uuid())
+  userId           String
+  user             User              @relation(fields: [userId], references: [id])
+  medicationId     String
+  medication       Medication        @relation(fields: [medicationId], references: [id])
+  status           NotificationStatus
   sentAt           DateTime?
   errorMessage     String?
   providerResponse String?
-  user              User @relation(fields: [userId], references: [id])
-  medication        Medication @relation(fields: [medicationId], references: [id])
-}
-
-enum NotificationStatus {
-  PENDING
-  SENT
-  FAILED
 }
