@@ -1,10 +1,14 @@
 @echo off
+REM Change to project directory (adjust if needed)
+cd /d "%~dp0..\Procect"
 
-REM Install npm dependencies
-npm install
+REM Install dependencies
+if not exist node_modules (
+  echo Installing dependencies...
+  npm install
+) else (
+  echo Dependencies already installed.
+)
 
-REM Apply Prisma migrations
-npx prisma migrate dev --name init
-
-REM Start the Next.js development server
+REM Start development server
 npm run dev
