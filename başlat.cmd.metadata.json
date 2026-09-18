@@ -1,5 +1,5 @@
 {
-  "summary": "Batch script to install dependencies and start the Next.js development server for the medication reminder project.",
-  "updatedAt": "2026-09-18T19:07:10.171804400Z",
+  "summary": "Startup script that installs deps, runs migrations, starts dev server, opens browser.",
+  "updatedAt": "2026-09-18T19:10:29.908093300Z",
   "userFacing": true
 }

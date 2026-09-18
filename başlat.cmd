@@ -1,8 +1,9 @@
 @echo off
-REM Change to project directory (adjust if needed)
-cd /d "%~dp0..\Procect"
+:: Startup script for Medication Reminder App
+:: Change to project directory
+cd /d "%~dp0..\\Procect"
 
-REM Install dependencies
+:: Install dependencies if needed
 if not exist node_modules (
   echo Installing dependencies...
   npm install
@@ -10,5 +11,15 @@ if not exist node_modules (
   echo Dependencies already installed.
 )
 
-REM Start development server
-npm run dev
+:: Apply Prisma migrations
+echo Applying Prisma migrations...
+npx prisma migrate deploy
+
+:: Start dev server in new window
+echo Starting development server...
+start "dev-server" cmd /c "npm run dev"
+
+:: Open browser
+start "" "http://localhost:3000"
+
+pause
