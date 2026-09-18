@@ -1,0 +1,33 @@
+my-medication-reminder/
+├─ app/
+│  ├─ api/
+│  │  ├─ auth/
+│  │  │  └─ [...nextauth].ts
+│  │  └─ reminders/
+│  │      ├─ route.ts   # Cron endpoint
+│  │      └─ worker.ts   # BullMQ worker processing SMS jobs
+│  ├─ dashboard/
+│  │  └─ page.tsx      # Dashboard UI page
+│  └─ (server actions)  # Server actions folder (optional)
+├─ components/
+│  ├─ Dashboard.tsx
+│  ├─ MedicationForm.tsx
+│  ├─ ReminderTimeline.tsx
+│  └─ NotificationLog.tsx
+├─ lib/
+│  ├─ prisma/
+│  │  └─ client.ts      # Prisma client singleton
+│  ├─ sms/
+│  │  └─ smsService.ts  # Twilio & Netgsm abstraction
+│  ├─ queue/
+│  │  └─ bullmq.ts      # BullMQ queue setup
+│  └─ validation/
+│      └─ schemas.ts    # Zod validation schemas
+├─ prisma/
+│  └─ schema.prisma    # Prisma data model
+├─ public/
+├─ styles/
+│  └─ globals.css      # Tailwind import
+├─ .env.example
+├─ tsconfig.json
+└─ package.json
