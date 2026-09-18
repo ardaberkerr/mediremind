@@ -1,0 +1,5 @@
+{
+  "summary": "Windows batch script to install dependencies, run Prisma migrations, and start the Next.js dev server.",
+  "updatedAt": "2026-09-18T19:06:40.268366700Z",
+  "userFacing": true
+}
