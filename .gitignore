@@ -4,3 +4,10 @@
 .system_generated/terminals/
 .tempmediaStorage/
 browser/
+node_modules
+
+.system_generated
+.expo
+.next
+build_output.txt
+

@@ -1,18 +1,7 @@
-import { PrismaClient } from '@prisma/client';
-
-let prisma: PrismaClient;
-
-if (process.env.NODE_ENV === 'production') {
-  prisma = new PrismaClient();
-} else {
-  // In development, use a global variable to preserve the client across hot-reloads
-  // @ts-ignore
-  if (!global.__prisma) {
-    // @ts-ignore
-    global.__prisma = new PrismaClient();
-  }
-  // @ts-ignore
-  prisma = global.__prisma;
-}
-
+/**
+ * STUB – This project uses JSON file storage, NOT Prisma/PostgreSQL.
+ * This file is kept to prevent import errors from old code that hasn't
+ * been cleaned up yet. Do NOT import this file.
+ */
+const prisma = null;
 export default prisma;
