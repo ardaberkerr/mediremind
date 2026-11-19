@@ -30,6 +30,14 @@ export async function getSmokingProfile(userId: string): Promise<SmokingProfile 
   return all.find((p) => p.userId === userId) ?? null;
 }
 
+export async function getAllSmokingProfiles(): Promise<SmokingProfile[]> {
+  return await smokingProfileStorage.read();
+}
+
+export async function getAllCravingLogs(): Promise<CravingLog[]> {
+  return await cravingLogsStorage.read();
+}
+
 export async function saveSmokingProfile(profile: SmokingProfile): Promise<SmokingProfile> {
   await smokingProfileStorage.update((profiles: SmokingProfile[]) => {
     const idx = profiles.findIndex((p) => p.userId === profile.userId);

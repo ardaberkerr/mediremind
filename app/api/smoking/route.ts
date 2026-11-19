@@ -9,6 +9,18 @@ import {
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const userId = searchParams.get("userId");
+  const all = searchParams.get("all");
+
+  if (all === "true") {
+    const { getAllSmokingProfiles, getAllCravingLogs } = await import("@/lib/smoking/smokingStorage");
+    const profiles = await getAllSmokingProfiles();
+    const cravings = await getAllCravingLogs();
+    return NextResponse.json({
+      success: true,
+      profiles,
+      cravings,
+    });
+  }
 
   if (!userId) {
     return NextResponse.json({ error: "userId parametresi zorunludur" }, { status: 400 });

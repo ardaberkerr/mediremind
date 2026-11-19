@@ -1,22 +1,30 @@
 @echo off
-:: -------------------------------------------------
-:: Project startup script – Medication Reminder App
-:: -------------------------------------------------
+title MediRemind - Akilli Ilac & Saglik Uygulamasi
+echo ========================================================
+echo  MediRemind Uygulamasi Baslatiliyor...
+echo ========================================================
 
-:: 1️⃣ Install dependencies (if not already installed)
+:: 1. Bagimlilik kontrolu
 if not exist node_modules (
-    echo Installing npm packages...
-    npm install
-) else (
-    echo Dependencies already installed.
+    echo Paketler yukleniyor...
+    call npm install
 )
 
-:: 2️⃣ Apply database migrations (Prisma)
-echo Running Prisma migrations...
-npx prisma migrate deploy
+:: 2. Derleme kontrolu (Eger .next yoksa build et)
+if not exist .next (
+    echo Ilk kurulum: Uygulama derleniyor (Production Build)...
+    call npm run build
+)
 
-:: 3️⃣ Launch the development server in a new window
-start "dev-server" cmd /c "npm run dev"
+:: 3. Eski takili node sureclerini temizle
+taskkill /F /IM node.exe >nul 2>&1
 
-:: 4️⃣ Open the application in the default browser
+:: 4. Production modunda kararlı ve CSS bozulmasi olmadan baslat
+echo Sunucu port 3000 uzerinde baslatiliyor...
+start "MediRemind-Server" cmd /c "npm run start"
+
+:: 5. Tarayiciyi ac
+timeout /t 3 /nobreak >nul
 start "" "http://localhost:3000"
+
+echo Uygulama basariyla acildi!

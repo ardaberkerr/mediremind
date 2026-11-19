@@ -104,6 +104,33 @@ export async function sendTestSms() {
   return data;
 }
 
+// --- Smoking Cessation Admin API ---
+
+export async function apiFetchAllSmokingData() {
+  try {
+    const res = await fetch("/api/smoking?all=true");
+    const data = await safeJsonParse(res);
+    return {
+      profiles: Array.isArray(data.profiles) ? data.profiles : [],
+      cravings: Array.isArray(data.cravings) ? data.cravings : [],
+    };
+  } catch (err) {
+    console.error("[apiFetchAllSmokingData]", err);
+    return { profiles: [], cravings: [] };
+  }
+}
+
+export async function apiFetchAllMedications() {
+  try {
+    const res = await fetch("/api/medications");
+    const data = await safeJsonParse(res);
+    return Array.isArray(data.medications) ? data.medications : [];
+  } catch (err) {
+    console.error("[apiFetchAllMedications]", err);
+    return [];
+  }
+}
+
 export async function getSmsStatus() {
   try {
     const res = await fetch("/api/sms/send");
