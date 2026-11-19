@@ -137,37 +137,85 @@ export default function UserDashboard({
 
   // ── Render ────────────────────────────────────────────────────────────
   return (
-    <div className="space-y-6 pb-28 md:pb-6">
-      {/* Welcome card */}
-      <div className="bg-gradient-to-br from-emerald-600 to-teal-700 rounded-2xl p-5 text-white shadow-lg shadow-emerald-600/20">
-        <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-2xl">
-            👤
+    <div className="pb-28 md:pb-6">
+      {/* ── DESKTOP: Sol Sidebar + Sağ İçerik ── */}
+      <div className="flex flex-col lg:flex-row gap-6 items-start">
+
+        {/* 🧭 SOL SABİT PANEL (SIDEBAR) — Sadece masaüstünde görünür */}
+        <aside className="hidden lg:flex w-72 shrink-0 bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-emerald-900/50 rounded-3xl p-5 shadow-xl flex-col gap-5 lg:sticky lg:top-24">
+          {/* Kullanıcı Profil Başlığı */}
+          <div className="bg-gradient-to-br from-emerald-600 to-teal-700 rounded-2xl p-4 text-white shadow-lg shadow-emerald-600/20">
+            <div className="flex items-center gap-3">
+              <div className="w-11 h-11 rounded-2xl bg-white/20 flex items-center justify-center text-xl">
+                👤
+              </div>
+              <div className="overflow-hidden">
+                <h2 className="text-sm font-black truncate">{user.name}</h2>
+                <p className="text-xs text-emerald-100 opacity-90">{user.phone}</p>
+              </div>
+            </div>
           </div>
-          <div>
-            <h2 className="text-lg font-black">Hoş Geldiniz, {user.name}</h2>
-            <p className="text-sm text-emerald-100 opacity-90">{user.phone}</p>
+
+          {/* Navigasyon Menüsü */}
+          <nav className="space-y-1.5">
+            <p className="text-[10px] font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500 px-3 mb-2">
+              MENÜ
+            </p>
+            {tabs.map((t) => {
+              const isActive = activeTab === t.key;
+              return (
+                <button
+                  key={t.key}
+                  onClick={() => setActiveTab(t.key)}
+                  className={`w-full flex items-center gap-2.5 px-3.5 py-3 rounded-2xl text-xs font-bold transition-all text-left ${
+                    isActive
+                      ? "bg-emerald-600 text-white shadow-lg shadow-emerald-600/30 scale-[1.02]"
+                      : "text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white"
+                  }`}
+                >
+                  <span className="text-base">{t.icon}</span>
+                  <span>{t.label}</span>
+                </button>
+              );
+            })}
+          </nav>
+
+          {/* Durum Bilgisi */}
+          <div className="pt-2 border-t border-slate-200 dark:border-slate-800 space-y-2">
+            <div className="bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800 p-3.5 rounded-2xl space-y-1.5">
+              <div className="flex items-center justify-between text-xs font-bold text-slate-400">
+                <span>TC Kimlik</span>
+                <span className={`font-mono uppercase ${user.identityInfo?.isVerified ? "text-emerald-500" : "text-amber-500"}`}>
+                  {user.identityInfo?.isVerified ? "✓ Doğrulandı" : "✕ Eksik"}
+                </span>
+              </div>
+              <div className="flex items-center justify-between text-xs font-bold text-slate-400">
+                <span>Bildirimler</span>
+                <span className="text-emerald-500 font-mono">
+                  {logs.filter((l) => l.status === "success").length} SMS
+                </span>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        {/* 📱 MOBİL: Üst Hoş Geldin Kartı — Sadece mobilde görünür */}
+        <div className="lg:hidden w-full space-y-4">
+          <div className="bg-gradient-to-br from-emerald-600 to-teal-700 rounded-2xl p-5 text-white shadow-lg shadow-emerald-600/20">
+            <div className="flex items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-white/20 flex items-center justify-center text-2xl">
+                👤
+              </div>
+              <div>
+                <h2 className="text-lg font-black">Hoş Geldiniz, {user.name}</h2>
+                <p className="text-sm text-emerald-100 opacity-90">{user.phone}</p>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Tab bar */}
-      <div className="flex gap-1 bg-slate-100 dark:bg-slate-800 rounded-xl p-1 overflow-x-auto">
-        {tabs.map((t) => (
-          <button
-            key={t.key}
-            onClick={() => setActiveTab(t.key)}
-            className={`flex-1 min-w-max flex items-center justify-center gap-1.5 py-2 px-3 rounded-lg text-sm font-semibold transition-all whitespace-nowrap ${
-              activeTab === t.key
-                ? "bg-white dark:bg-slate-700 text-emerald-700 dark:text-emerald-300 shadow-sm"
-                : "text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
-            }`}
-          >
-            <span>{t.icon}</span>
-            <span className="hidden sm:inline">{t.label}</span>
-          </button>
-        ))}
-      </div>
+        {/* 📄 SAĞ ANA İÇERİK ALANI */}
+        <main className="flex-1 w-full space-y-6">
 
       {/* ── Tab: İlaçlar ── */}
       {activeTab === "reminders" && (
@@ -478,6 +526,9 @@ export default function UserDashboard({
         notificationCount={logs.filter((l) => l.status === "success").length}
         isIdentityVerified={user.identityInfo?.isVerified}
       />
+
+        </main>
+      </div>
     </div>
   );
 }
