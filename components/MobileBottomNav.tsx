@@ -3,8 +3,8 @@
 import React from "react";
 
 interface MobileBottomNavProps {
-  activeTab: "reminders" | "notifications" | "identity" | "settings";
-  onSelectTab: (tab: "reminders" | "notifications" | "identity" | "settings") => void;
+  activeTab: "reminders" | "smoking" | "notifications" | "identity" | "settings";
+  onSelectTab: (tab: "reminders" | "smoking" | "notifications" | "identity" | "settings") => void;
   notificationCount?: number;
   isIdentityVerified?: boolean;
 }
@@ -20,6 +20,11 @@ export default function MobileBottomNav({
       id: "reminders" as const,
       label: "İlaçlarım",
       icon: "💊",
+    },
+    {
+      id: "smoking" as const,
+      label: "Sigara Bırak",
+      icon: "🚭",
     },
     {
       id: "notifications" as const,

@@ -6,6 +6,7 @@ import { SmsLogItem, apiUpdateUser } from "@/lib/api/client";
 import MedicationForm from "@/components/MedicationForm";
 import MobileBottomNav from "@/components/MobileBottomNav";
 import PatientIdentityModal from "@/components/PatientIdentityModal";
+import SmokingQuitSupport from "@/components/SmokingQuitSupport";
 import { Button } from "@/components/ui/button";
 
 // ── Props ─────────────────────────────────────────────────────────────────
@@ -27,7 +28,7 @@ function formatDate(dateStr?: string) {
   }
 }
 
-type TabKey = "reminders" | "notifications" | "identity" | "settings";
+type TabKey = "reminders" | "smoking" | "notifications" | "identity" | "settings";
 
 // ── Component ─────────────────────────────────────────────────────────────
 export default function UserDashboard({
@@ -128,6 +129,7 @@ export default function UserDashboard({
   // ── Tabs config ───────────────────────────────────────────────────────
   const tabs: { key: TabKey; label: string; icon: string }[] = [
     { key: "reminders", label: "İlaçlar", icon: "💊" },
+    { key: "smoking", label: "Sigara Bırak", icon: "🚭" },
     { key: "notifications", label: "Bildirimler", icon: "🔔" },
     { key: "identity", label: "Kimlik", icon: "🆔" },
     { key: "settings", label: "Ayarlar", icon: "⚙️" },
@@ -176,6 +178,16 @@ export default function UserDashboard({
             onSmsTriggered={onSmsTriggered}
           />
         </div>
+      )}
+
+      {/* ── Tab: Sigara Bırakma Destek Merkezi ── */}
+      {activeTab === "smoking" && (
+        <SmokingQuitSupport
+          userId={user.id}
+          userName={user.name}
+          userPhone={user.phone}
+          onSmsTriggered={onSmsTriggered}
+        />
       )}
 
       {/* ── Tab: Bildirimler ── */}
